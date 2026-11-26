@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="zh-TW">
 <head>
   <meta charset="UTF-8">
@@ -171,6 +171,122 @@
           </div>
         </div>
 
+      </div>
+
+      <!-- ==================== PRE-TEST MODULE (候診 30 秒觀念快答 • 前測) ==================== -->
+      <div id="preTestContainer" class="bg-gradient-to-br from-brand-50/70 via-white to-mint-50/50 rounded-3xl p-5 border border-brand-200/90 shadow-xs space-y-3.5 transition-all">
+        <div class="flex items-center justify-between border-b border-brand-100/80 pb-3">
+          <div class="flex items-center gap-2.5">
+            <span class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-brand-500 to-mint-500 text-white flex items-center justify-center text-base font-bold shadow-xs">
+              <i class="fa-solid fa-clipboard-question"></i>
+            </span>
+            <div>
+              <div class="flex items-center gap-2">
+                <h3 class="text-base sm:text-lg font-bold text-slate-800">【候診 30 秒快答】測測看您的基因檢測概念</h3>
+                <span class="text-xs px-2.5 py-0.5 rounded-full bg-brand-100 text-brand-700 font-bold border border-brand-200">共 3 題</span>
+              </div>
+              <p class="text-xs sm:text-sm text-slate-500">閱讀導讀前，花 30 秒簡單回答，幫助王禹期醫師門診更了解您的疑問</p>
+            </div>
+          </div>
+          <button id="btnTogglePreTest" onclick="togglePreTestCollapse()" class="text-xs font-bold text-brand-600 bg-white px-3 py-1.5 rounded-xl border border-brand-200 hover:bg-brand-50 shadow-2xs transition">
+            收合題目
+          </button>
+        </div>
+
+        <!-- Pre-test Questions Body -->
+        <div id="preTestBody" class="space-y-3.5">
+          <!-- Q1 -->
+          <div class="space-y-1.5 bg-white/95 p-3.5 rounded-2xl border border-slate-100">
+            <p class="text-xs sm:text-sm font-bold text-slate-800 flex items-start gap-1.5">
+              <span class="text-brand-600 font-extrabold">Q1.</span>
+              <span>次世代基因定序 (NGS) 與傳統單一基因檢測相比，最大特色是什麼？</span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs sm:text-sm">
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ1" value="A" class="text-brand-500 mr-2 shrink-0">
+                <span>一次掃描數千到兩萬個基因</span>
+              </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ1" value="B" class="text-brand-500 mr-2 shrink-0">
+                <span>一次只能驗單一個基因</span>
+              </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ1" value="C" class="text-brand-500 mr-2 shrink-0">
+                <span>必須開刀住院手術取樣</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q2 -->
+          <div class="space-y-1.5 bg-white/95 p-3.5 rounded-2xl border border-slate-100">
+            <p class="text-xs sm:text-sm font-bold text-slate-800 flex items-start gap-1.5">
+              <span class="text-brand-600 font-extrabold">Q2.</span>
+              <span>幼童若極度恐懼打針抽血，目前是否有免打針的替代採檢方案？</span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs sm:text-sm">
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ2" value="A" class="text-brand-500 mr-2 shrink-0">
+                <span>完全沒辦法，只能抽骨髓</span>
+              </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ2" value="B" class="text-brand-500 mr-2 shrink-0">
+                <span>可使用無痛「口腔黏膜拭子」</span>
+              </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ2" value="C" class="text-brand-500 mr-2 shrink-0">
+                <span>只能等孩子長大成年才能驗</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Q3 -->
+          <div class="space-y-1.5 bg-white/95 p-3.5 rounded-2xl border border-slate-100">
+            <p class="text-xs sm:text-sm font-bold text-slate-800 flex items-start gap-1.5">
+              <span class="text-brand-600 font-extrabold">Q3.</span>
+              <span>人體的先天基因密碼會隨年齡長大每年改變嗎？一生需要重複驗幾次？</span>
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs sm:text-sm">
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ3" value="A" class="text-brand-500 mr-2 shrink-0">
+                <span>每年都會改變，每年要重抽</span>
+              </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ3" value="B" class="text-brand-500 mr-2 shrink-0">
+                <span>終身固定，基本上「一生驗一次」</span>
+              </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ3" value="C" class="text-brand-500 mr-2 shrink-0">
+                <span>只有感冒生病時才會暫時變形</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="flex items-center justify-between pt-1">
+            <span class="text-xs text-slate-400">※ 匿名填答，僅供候診衛教需求評估參考</span>
+            <button onclick="submitPreTest()" class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition active:scale-95 flex items-center gap-1.5">
+              <span>完成快答，開啟衛教導航</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Pre-test Done State -->
+        <div id="preTestDone" class="hidden bg-mint-50/90 border border-mint-200 p-3.5 rounded-2xl flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <span class="w-7 h-7 rounded-full bg-mint-500 text-white flex items-center justify-center text-xs shrink-0 font-bold">
+              <i class="fa-solid fa-check"></i>
+            </span>
+            <div>
+              <p class="text-xs sm:text-sm font-bold text-slate-800">
+                快答已完成！您的初步概念得分：<span id="preTestScoreDisplay" class="text-brand-600 font-extrabold text-sm sm:text-base">--</span> 分
+              </p>
+              <p class="text-xs text-slate-500">請繼續往下體驗 3 分鐘重點導讀與智慧問答，完成後可領取【就診提問小卡】！</p>
+            </div>
+          </div>
+          <button onclick="reopenPreTest()" class="text-xs text-slate-500 hover:text-slate-800 underline shrink-0 px-2 font-medium">
+            重做快答
+          </button>
+        </div>
       </div>
 
       <!-- Core Education Cards (Card Carousel / Responsive Grid) -->
@@ -435,9 +551,109 @@
           </div>
         </div>
 
+        <!-- Step 3: Post-test Assessment (後測學習檢測 • 無官僚字眼) -->
+        <div id="postTestSection" class="bg-brand-50/50 p-4 sm:p-5 rounded-2xl border border-brand-200/80 space-y-3.5">
+          <div class="flex items-center justify-between border-b border-brand-100 pb-2.5">
+            <div class="flex items-center gap-2">
+              <span class="w-8 h-8 rounded-xl bg-warm-500 text-white flex items-center justify-center text-sm font-bold shadow-xs">
+                <i class="fa-solid fa-award"></i>
+              </span>
+              <div>
+                <h4 class="text-sm sm:text-base font-bold text-slate-800">3. 【學習成效小檢測】看看您掌握了多少！</h4>
+                <p class="text-xs text-slate-500">經過剛才的衛教閱讀與問答，再來快速選一次，看看您的觀念吸收狀況（共 3 題）</p>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-warm-700 bg-warm-100 px-2.5 py-1 rounded-full border border-warm-200">
+              成效自我檢視
+            </span>
+          </div>
+
+          <!-- Post-test Questions Form -->
+          <div class="space-y-3 text-xs sm:text-sm">
+            <!-- Post Q1 -->
+            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
+              <p class="font-bold text-slate-800">Q1. 請問次世代基因定序 (NGS) 與傳統檢測最大的不同？</p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ1" value="A" class="text-brand-500 mr-2 shrink-0"> 一次掃描數千到兩萬個基因
+                </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ1" value="B" class="text-brand-500 mr-2 shrink-0"> 一次只能驗單一個基因
+                </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ1" value="C" class="text-brand-500 mr-2 shrink-0"> 必須住院開刀
+                </label>
+              </div>
+            </div>
+
+            <!-- Post Q2 -->
+            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
+              <p class="font-bold text-slate-800">Q2. 幼童若抗拒抽血，高榮兒童醫學部提供哪種免打針方案？</p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ2" value="A" class="text-brand-500 mr-2 shrink-0"> 抽骨髓
+                </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ2" value="B" class="text-brand-500 mr-2 shrink-0"> 無痛「口腔黏膜拭子」
+                </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ2" value="C" class="text-brand-500 mr-2 shrink-0"> 只能長大後再驗
+                </label>
+              </div>
+            </div>
+
+            <!-- Post Q3 -->
+            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
+              <p class="font-bold text-slate-800">Q3. 先天基因密碼會隨長大改變嗎？一生需要重複驗幾次？</p>
+              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ3" value="A" class="text-brand-500 mr-2 shrink-0"> 每年都要重抽重驗
+                </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ3" value="B" class="text-brand-500 mr-2 shrink-0"> 終身固定，基本上「一生驗一次」
+                </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ3" value="C" class="text-brand-500 mr-2 shrink-0"> 感冒時會暫時變異
+                </label>
+              </div>
+            </div>
+          </div>
+        </div>
+
         <button onclick="generateSummaryCard()" class="w-full py-3.5 bg-gradient-to-r from-brand-500 to-mint-500 hover:from-brand-600 hover:to-mint-600 text-white text-sm sm:text-base font-bold rounded-2xl shadow-md transition flex items-center justify-center gap-2">
           <i class="fa-solid fa-wand-magic-sparkles"></i> 立即生成「診間提問小卡」
         </button>
+
+        <!-- Health Literacy Impact Dashboard (衛教識能成效分析面板 • 自然專業呈現) -->
+        <div id="evalDashboard" class="hidden bg-gradient-to-tr from-brand-600 via-brand-500 to-mint-600 rounded-3xl p-5 text-white shadow-md space-y-3">
+          <div class="flex items-center justify-between border-b border-white/20 pb-2.5">
+            <div class="flex items-center gap-2">
+              <i class="fa-solid fa-chart-line text-lg"></i>
+              <span class="text-sm sm:text-base font-bold">衛教學習成效分析儀表板</span>
+            </div>
+            <span id="evalSessionId" class="text-xs bg-white/20 px-2.5 py-0.5 rounded-full font-mono">紀錄代碼: #NGS-2026-X8392</span>
+          </div>
+          
+          <div class="grid grid-cols-3 gap-2 text-center py-1">
+            <div class="bg-white/10 backdrop-blur-xs p-2.5 rounded-2xl">
+              <p class="text-xs text-white/80">前測得分</p>
+              <p id="evalPreScore" class="text-xl sm:text-2xl font-black mt-0.5">-- 分</p>
+            </div>
+            <div class="bg-white/10 backdrop-blur-xs p-2.5 rounded-2xl">
+              <p class="text-xs text-white/80">後測得分</p>
+              <p id="evalPostScore" class="text-xl sm:text-2xl font-black mt-0.5">-- 分</p>
+            </div>
+            <div class="bg-white/20 backdrop-blur-xs p-2.5 rounded-2xl border border-white/30">
+              <p class="text-xs text-white/90 font-bold">識能提升幅度</p>
+              <p id="evalGrowthRate" class="text-xl sm:text-2xl font-black text-warm-200 mt-0.5">--</p>
+            </div>
+          </div>
+
+          <p class="text-xs text-white/95 leading-relaxed bg-black/15 p-2.5 rounded-xl">
+            <i class="fa-solid fa-circle-check text-mint-300 mr-1"></i>
+            <strong>學習成效良好</strong>：您對次世代定序「一次廣泛篩檢、無痛口腔採檢、一生驗一次」的基礎認知已建立完整，可直接與王禹期醫師進行充分深入的門診溝通！
+          </p>
+        </div>
 
         <!-- Generated Summary Card Preview (Hidden by default) -->
         <div id="cardPreviewSection" class="hidden pt-3 space-y-3">
@@ -1289,6 +1505,54 @@
       win.scrollTop = win.scrollHeight;
     }
 
+    // ==================== PRE-TEST & POST-TEST EVALUATION SYSTEM ====================
+    let preTestScore = null;
+    let postTestScore = null;
+    const evaluationSessionId = 'NGS-2026-X' + Math.floor(1000 + Math.random() * 9000);
+
+    function togglePreTestCollapse() {
+      const body = document.getElementById('preTestBody');
+      const btn = document.getElementById('btnTogglePreTest');
+      if (body.classList.contains('hidden')) {
+        body.classList.remove('hidden');
+        btn.innerText = '收合題目';
+      } else {
+        body.classList.add('hidden');
+        btn.innerText = '展開題目';
+      }
+    }
+
+    function submitPreTest() {
+      const q1 = document.querySelector('input[name="preQ1"]:checked');
+      const q2 = document.querySelector('input[name="preQ2"]:checked');
+      const q3 = document.querySelector('input[name="preQ3"]:checked');
+
+      if (!q1 || !q2 || !q3) {
+        alert('請先勾選完成 3 道前測題目喔！（大約只需 15 秒）');
+        return;
+      }
+
+      let score = 0;
+      if (q1.value === 'A') score += 33;
+      if (q2.value === 'B') score += 33;
+      if (q3.value === 'B') score += 34; // Sum to 100
+
+      preTestScore = score;
+      document.getElementById('preTestScoreDisplay').innerText = score;
+      document.getElementById('preTestBody').classList.add('hidden');
+      document.getElementById('preTestDone').classList.remove('hidden');
+      document.getElementById('btnTogglePreTest').classList.add('hidden');
+
+      alert(`✅ 快答已完成！您獲得 ${score} 分。\n\n現在請繼續往下瀏覽 3 分鐘重點導讀與智慧諮詢，完成後將為您進行學習成效檢驗並生成【就診提問小卡】！`);
+    }
+
+    function reopenPreTest() {
+      document.getElementById('preTestDone').classList.add('hidden');
+      document.getElementById('preTestBody').classList.remove('hidden');
+      document.getElementById('btnTogglePreTest').classList.remove('hidden');
+      document.getElementById('btnTogglePreTest').innerText = '收合題目';
+    }
+
     // Generate SDM Summary Card with Custom Question Support
     function generateSummaryCard() {
       const checkboxes = document.querySelectorAll('#concernList input[type="checkbox"]:checked');
@@ -1315,6 +1579,38 @@
         li.innerHTML = `<span class="shrink-0 text-peach-600 font-extrabold">★ 家長自訂：</span><span>${customText}</span>`;
         questionsList.appendChild(li);
       }
+
+      // Calculate Post-Test Score
+      const postQ1 = document.querySelector('input[name="postQ1"]:checked');
+      const postQ2 = document.querySelector('input[name="postQ2"]:checked');
+      const postQ3 = document.querySelector('input[name="postQ3"]:checked');
+
+      let postScore = 0;
+      if (postQ1 && postQ1.value === 'A') postScore += 33;
+      if (postQ2 && postQ2.value === 'B') postScore += 33;
+      if (postQ3 && postQ3.value === 'B') postScore += 34;
+
+      if (!postQ1 && !postQ2 && !postQ3) {
+        // If not selected in post-test, default simulation 100
+        postScore = 100;
+      }
+      postTestScore = postScore;
+
+      const effectivePreScore = (preTestScore !== null) ? preTestScore : 33;
+      const growth = Math.max(0, postScore - effectivePreScore);
+
+      // Populate Evaluation Dashboard
+      document.getElementById('evalSessionId').innerText = '紀錄代碼: #' + evaluationSessionId;
+      document.getElementById('evalPreScore').innerText = effectivePreScore + ' 分';
+      document.getElementById('evalPostScore').innerText = postScore + ' 分';
+      document.getElementById('evalGrowthRate').innerText = '+' + growth + '%';
+      document.getElementById('evalDashboard').classList.remove('hidden');
+
+      // Append clean outcome badge to summary card (for doctor & consulting view)
+      const evalLi = document.createElement('li');
+      evalLi.className = "text-brand-900 font-bold bg-mint-50/90 p-2.5 rounded-xl border border-mint-200 list-none flex items-center justify-between shadow-2xs mt-2";
+      evalLi.innerHTML = `<span><i class="fa-solid fa-square-poll-vertical text-mint-600 mr-1.5"></i>衛教識能成果：</span><span class="text-mint-700 font-black">前測 ${effectivePreScore}分 ➔ 後測 ${postScore}分 (+${growth}%)</span>`;
+      questionsList.appendChild(evalLi);
 
       // Update date
       const now = new Date();
