@@ -201,7 +201,7 @@
               <span class="text-brand-600 font-extrabold">Q1.</span>
               <span>次世代基因定序 (NGS) 與傳統單一基因檢測相比，最大特色是什麼？</span>
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs sm:text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-xs sm:text-sm">
               <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                 <input type="radio" name="preQ1" value="A" class="text-brand-500 mr-2 shrink-0">
                 <span>一次掃描數千到兩萬個基因</span>
@@ -214,6 +214,10 @@
                 <input type="radio" name="preQ1" value="C" class="text-brand-500 mr-2 shrink-0">
                 <span>必須開刀住院手術取樣</span>
               </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                <input type="radio" name="preQ1" value="D" class="text-slate-400 mr-2 shrink-0">
+                <span class="text-slate-500">我不清楚 / 想了解</span>
+              </label>
             </div>
           </div>
 
@@ -223,7 +227,7 @@
               <span class="text-brand-600 font-extrabold">Q2.</span>
               <span>幼童若極度恐懼打針抽血，目前是否有免打針的替代採檢方案？</span>
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs sm:text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-xs sm:text-sm">
               <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                 <input type="radio" name="preQ2" value="A" class="text-brand-500 mr-2 shrink-0">
                 <span>完全沒辦法，只能抽骨髓</span>
@@ -236,6 +240,10 @@
                 <input type="radio" name="preQ2" value="C" class="text-brand-500 mr-2 shrink-0">
                 <span>只能等孩子長大成年才能驗</span>
               </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                <input type="radio" name="preQ2" value="D" class="text-slate-400 mr-2 shrink-0">
+                <span class="text-slate-500">我不清楚 / 想了解</span>
+              </label>
             </div>
           </div>
 
@@ -245,7 +253,7 @@
               <span class="text-brand-600 font-extrabold">Q3.</span>
               <span>人體的先天基因密碼會隨年齡長大每年改變嗎？一生需要重複驗幾次？</span>
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-1 text-xs sm:text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-xs sm:text-sm">
               <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                 <input type="radio" name="preQ3" value="A" class="text-brand-500 mr-2 shrink-0">
                 <span>每年都會改變，每年要重抽</span>
@@ -257,6 +265,10 @@
               <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                 <input type="radio" name="preQ3" value="C" class="text-brand-500 mr-2 shrink-0">
                 <span>只有感冒生病時才會暫時變形</span>
+              </label>
+              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                <input type="radio" name="preQ3" value="D" class="text-slate-400 mr-2 shrink-0">
+                <span class="text-slate-500">我不清楚 / 想了解</span>
               </label>
             </div>
           </div>
@@ -489,7 +501,7 @@
           <p class="text-sm sm:text-base font-bold text-slate-800">1. 透過剛才的衛教，您對 NGS（次世代定序）的了解程度：</p>
           <div class="grid grid-cols-2 gap-2.5 text-sm sm:text-base">
             <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-              <input type="radio" name="sdm_knowledge" value="4" class="text-brand-500 mr-2" checked> 非常了解
+              <input type="radio" name="sdm_knowledge" value="4" class="text-brand-500 mr-2"> 非常了解
             </label>
             <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
               <input type="radio" name="sdm_knowledge" value="3" class="text-brand-500 mr-2"> 了解大部分
@@ -511,7 +523,7 @@
           </div>
           <div class="space-y-2 text-sm sm:text-base" id="concernList">
             <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="檢測費用與國健署/罕病補助資格試算" class="text-brand-500 rounded mr-2.5 w-4 h-4" checked>
+              <input type="checkbox" value="檢測費用與國健署/罕病補助資格試算" class="text-brand-500 rounded mr-2.5 w-4 h-4">
               <span>💰 檢測費用與是否有補助專案可申請</span>
             </label>
             <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
@@ -523,7 +535,7 @@
               <span>🩸 小朋友抗拒抽血時，能否使用免打針「口腔黏膜拭子」？</span>
             </label>
             <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="檢測出報告的時間與後續治療規劃" class="text-brand-500 rounded mr-2.5 w-4 h-4" checked>
+              <input type="checkbox" value="檢測出報告的時間與後續治療規劃" class="text-brand-500 rounded mr-2.5 w-4 h-4">
               <span>⏳ 檢測出報告需要幾週？確診後的治療方向？</span>
             </label>
             <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
@@ -573,7 +585,7 @@
             <!-- Post Q1 -->
             <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
               <p class="font-bold text-slate-800">Q1. 請問次世代基因定序 (NGS) 與傳統檢測最大的不同？</p>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5">
                 <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                   <input type="radio" name="postQ1" value="A" class="text-brand-500 mr-2 shrink-0"> 一次掃描數千到兩萬個基因
                 </label>
@@ -583,13 +595,17 @@
                 <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                   <input type="radio" name="postQ1" value="C" class="text-brand-500 mr-2 shrink-0"> 必須住院開刀
                 </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                  <input type="radio" name="postQ1" value="D" class="text-slate-400 mr-2 shrink-0">
+                  <span class="text-slate-500">我不清楚 / 仍有疑問</span>
+                </label>
               </div>
             </div>
 
             <!-- Post Q2 -->
             <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
               <p class="font-bold text-slate-800">Q2. 幼童若抗拒抽血，高榮兒童醫學部提供哪種免打針方案？</p>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5">
                 <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                   <input type="radio" name="postQ2" value="A" class="text-brand-500 mr-2 shrink-0"> 抽骨髓
                 </label>
@@ -599,13 +615,17 @@
                 <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                   <input type="radio" name="postQ2" value="C" class="text-brand-500 mr-2 shrink-0"> 只能長大後再驗
                 </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                  <input type="radio" name="postQ2" value="D" class="text-slate-400 mr-2 shrink-0">
+                  <span class="text-slate-500">我不清楚 / 仍有疑問</span>
+                </label>
               </div>
             </div>
 
             <!-- Post Q3 -->
             <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
               <p class="font-bold text-slate-800">Q3. 先天基因密碼會隨長大改變嗎？一生需要重複驗幾次？</p>
-              <div class="grid grid-cols-1 sm:grid-cols-3 gap-1.5">
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5">
                 <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                   <input type="radio" name="postQ3" value="A" class="text-brand-500 mr-2 shrink-0"> 每年都要重抽重驗
                 </label>
@@ -614,6 +634,10 @@
                 </label>
                 <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
                   <input type="radio" name="postQ3" value="C" class="text-brand-500 mr-2 shrink-0"> 感冒時會暫時變異
+                </label>
+                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                  <input type="radio" name="postQ3" value="D" class="text-slate-400 mr-2 shrink-0">
+                  <span class="text-slate-500">我不清楚 / 仍有疑問</span>
                 </label>
               </div>
             </div>
