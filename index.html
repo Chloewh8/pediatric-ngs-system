@@ -136,7 +136,7 @@
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ebdccd]/80 pb-3">
             <div>
               <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs text-brand-600 text-xs sm:text-sm font-bold mb-2 shadow-2xs border border-brand-100">
-                <i class="fa-solid fa-shield-heart text-peach-500"></i> 高雄榮民總醫院 兒童醫學部 • 溫馨守護
+                <i class="fa-solid fa-shield-heart text-peach-500"></i> 高雄榮民總醫院 兒童醫學部 • 家庭溫馨守護
               </div>
               <h2 class="text-xl sm:text-2xl font-bold text-slate-800 leading-snug">
                 次世代基因定序 (NGS) <span class="text-brand-600">讓遺傳密碼成為守護指引</span>
@@ -148,7 +148,7 @@
           </div>
 
           <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
-            透過一次檢測數百個關鍵基因，找出可能病因，協助王禹期醫師與高雄榮總醫療團隊精準診斷，少走冤枉路！
+            透過一次檢測數百個關鍵基因，找出可能病因，王禹期醫師與高雄榮總醫療團隊精準診斷，陪家人走得更安心！
           </p>
 
           <!-- Quick Navigation Pill Buttons -->
@@ -282,7 +282,7 @@
           </div>
         </div>
 
-        <!-- Pre-test Done State -->
+        <!-- Pre-test Done State (Clean, Encouraging, No Score / No Guessing Redo) -->
         <div id="preTestDone" class="hidden bg-mint-50/90 border border-mint-200 p-3.5 rounded-2xl flex items-center justify-between">
           <div class="flex items-center gap-2.5">
             <span class="w-7 h-7 rounded-full bg-mint-500 text-white flex items-center justify-center text-xs shrink-0 font-bold">
@@ -290,19 +290,16 @@
             </span>
             <div>
               <p class="text-xs sm:text-sm font-bold text-slate-800">
-                快答已完成！您的初步概念得分：<span id="preTestScoreDisplay" class="text-brand-600 font-extrabold text-sm sm:text-base">--</span> 分
+                快答已完成！感謝您的填答
               </p>
               <p class="text-xs text-slate-500">請繼續往下體驗 3 分鐘重點導讀與智慧問答，完成後可領取【就診提問小卡】！</p>
             </div>
           </div>
-          <button onclick="reopenPreTest()" class="text-xs text-slate-500 hover:text-slate-800 underline shrink-0 px-2 font-medium">
-            重做快答
-          </button>
         </div>
       </div>
 
       <!-- Core Education Cards (Card Carousel / Responsive Grid) -->
-      <div class="space-y-3">
+      <div id="sectionGuide" class="space-y-3">
         <div class="flex items-center justify-between">
           <h3 class="text-base sm:text-lg font-bold text-slate-800 flex items-center gap-2">
             <span class="w-2 h-5 bg-brand-500 rounded-full"></span> 候診 3 分鐘重點導讀
@@ -1562,19 +1559,14 @@
       if (q3.value === 'B') score += 34; // Sum to 100
 
       preTestScore = score;
-      document.getElementById('preTestScoreDisplay').innerText = score;
+      const scoreEl = document.getElementById('preTestScoreDisplay');
+      if (scoreEl) scoreEl.innerText = score;
+      
       document.getElementById('preTestBody').classList.add('hidden');
       document.getElementById('preTestDone').classList.remove('hidden');
       document.getElementById('btnTogglePreTest').classList.add('hidden');
 
-      alert(`✅ 快答已完成！您獲得 ${score} 分。\n\n現在請繼續往下瀏覽 3 分鐘重點導讀與智慧諮詢，完成後將為您進行學習成效檢驗並生成【就診提問小卡】！`);
-    }
-
-    function reopenPreTest() {
-      document.getElementById('preTestDone').classList.add('hidden');
-      document.getElementById('preTestBody').classList.remove('hidden');
-      document.getElementById('btnTogglePreTest').classList.remove('hidden');
-      document.getElementById('btnTogglePreTest').innerText = '收合題目';
+      alert('✅ 快答已完成！感謝您的填答。\n\n現在請繼續往下瀏覽 3 分鐘重點導讀與智慧諮詢，完成後將為您生成專屬【就診提問小卡】！');
     }
 
     // Generate SDM Summary Card with Custom Question Support
@@ -1787,21 +1779,33 @@
       setTimeout(updateCarouselDots, 250);
     }
 
-    // Go to specific card index
+    // Go to specific card index and smoothly scroll viewport into view
     function goToCarouselCard(index) {
+      const guideSection = document.getElementById('sectionGuide');
+      if (guideSection) {
+        guideSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+
       const carousel = document.getElementById('eduCarousel');
-      if (!carousel || isGridLayout) return;
+      if (!carousel) return;
       const cards = carousel.querySelectorAll('.edu-card');
       if (!cards[index]) return;
-      
+
+      if (isGridLayout) {
+        setTimeout(() => {
+          cards[index].scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }, 150);
+        return;
+      }
+
       const maxScroll = carousel.scrollWidth - carousel.clientWidth;
-      if (maxScroll <= 0) return;
-      
-      const targetPos = Math.min(maxScroll, Math.max(0, cards[index].offsetLeft - carousel.offsetLeft - 4));
-      carousel.scrollTo({
-        left: targetPos,
-        behavior: 'smooth'
-      });
+      if (maxScroll > 0) {
+        const targetPos = Math.min(maxScroll, Math.max(0, cards[index].offsetLeft - carousel.offsetLeft - 4));
+        carousel.scrollTo({
+          left: targetPos,
+          behavior: 'smooth'
+        });
+      }
       setTimeout(updateCarouselDots, 250);
     }
 
