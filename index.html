@@ -62,17 +62,25 @@
     html {
       font-size: 16px;
       -webkit-text-size-adjust: 100%;
+      transition: font-size 0.2s ease;
+    }
+    html.font-normal {
+      font-size: 16px !important;
+    }
+    html.font-large {
+      font-size: 18px !important;
+    }
+    html.font-xlarge {
+      font-size: 20px !important;
     }
     body {
       font-family: 'Zen Maru Gothic', 'Noto Sans TC', sans-serif;
       -webkit-tap-highlight-color: transparent;
-      font-size: 15px;
+      font-size: 1rem;
       line-height: 1.6;
     }
-    @media (min-width: 640px) {
-      body {
-        font-size: 16px;
-      }
+    .balance-text {
+      text-wrap: balance;
     }
     .hide-scrollbar::-webkit-scrollbar {
       display: none;
@@ -86,31 +94,39 @@
 <body class="bg-slate-50 text-slate-800 antialiased selection:bg-brand-100 selection:text-brand-600 pb-24 md:pb-8">
 
   <!-- Top Sticky Navigation & Track Switcher -->
-  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-sm">
-    <div class="max-w-md md:max-w-4xl mx-auto px-4 py-3 flex items-center justify-between">
-      <div class="flex items-center space-x-2.5">
-        <div class="w-10 h-10 sm:w-11 sm:h-11 rounded-2xl bg-gradient-to-tr from-brand-400 to-mint-500 flex items-center justify-center text-white shadow-md shadow-brand-100 shrink-0">
-          <i class="fa-solid fa-dna text-lg sm:text-xl"></i>
+  <header class="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-slate-100 shadow-xs">
+    <div class="max-w-md md:max-w-4xl mx-auto px-3.5 py-2.5 flex items-center justify-between gap-2">
+      <div class="flex items-center space-x-2.5 min-w-0">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-400 to-mint-500 flex items-center justify-center text-white shadow-sm shrink-0">
+          <i class="fa-solid fa-dna text-lg"></i>
         </div>
-        <div>
-          <div class="text-xs sm:text-sm font-bold tracking-wide flex items-center gap-1.5">
-            <span class="text-slate-700">高雄榮民總醫院</span>
-            <span class="text-slate-300">｜</span>
-            <span class="text-brand-600 font-extrabold">兒童醫學部</span>
+        <div class="min-w-0">
+          <div class="text-[11px] sm:text-xs font-bold text-slate-500 flex items-center gap-1 truncate">
+            <span>高雄榮總 兒童醫學部</span>
+            <span>•</span>
+            <span class="text-brand-600 font-bold">王禹期醫師</span>
           </div>
-          <h1 class="text-base sm:text-lg font-black text-slate-800 leading-tight">兒科 NGS 智慧衛教導航</h1>
-          <p class="text-xs sm:text-sm text-slate-500 font-medium">健康台灣深耕計畫 • 兒童遺傳專科 王禹期醫師門診</p>
+          <h1 class="text-sm sm:text-lg font-black text-slate-800 leading-tight truncate">兒科 NGS 智慧衛教導航</h1>
         </div>
       </div>
 
-      <!-- Mode Selector (Public vs. Expert) -->
-      <div class="flex items-center bg-slate-100 p-1 rounded-2xl border border-slate-200">
-        <button id="btnTrackPublic" onclick="switchTrack('public')" class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-bold transition-all flex items-center space-x-1 bg-white text-brand-600 shadow-sm">
-          <span>🌸 爸媽易讀版</span>
+      <!-- Action Controls: Font Size Switcher (Elderly Friendly) + Version Switcher -->
+      <div class="flex items-center gap-1.5 shrink-0">
+        <!-- Font Size Toggle Button -->
+        <button onclick="cycleFontSize()" id="btnFontSize" title="點擊調整文字大小" class="px-2.5 py-1.5 rounded-xl bg-warm-50 text-warm-700 hover:bg-warm-100 border border-warm-200 text-xs sm:text-sm font-bold flex items-center gap-1 transition shadow-2xs active:scale-95">
+          <i class="fa-solid fa-text-height text-xs"></i>
+          <span id="fontSizeLabel">字體: 大</span>
         </button>
-        <button id="btnTrackExpert" onclick="switchTrack('expert')" class="px-3.5 py-1.5 rounded-xl text-xs sm:text-sm font-semibold text-slate-500 transition-all flex items-center space-x-1 hover:text-slate-800">
-          <span>🩺 臨床專家版</span>
-        </button>
+
+        <!-- Mode Selector -->
+        <div class="flex items-center bg-slate-100 p-0.5 rounded-xl border border-slate-200 text-xs">
+          <button id="btnTrackPublic" onclick="switchTrack('public')" class="px-2.5 py-1 rounded-lg font-bold bg-white text-brand-600 shadow-xs">
+            <span>🌸 爸媽版</span>
+          </button>
+          <button id="btnTrackExpert" onclick="switchTrack('expert')" class="px-2 py-1 rounded-lg font-semibold text-slate-500 hover:text-slate-800">
+            <span>🩺 專家版</span>
+          </button>
+        </div>
       </div>
     </div>
   </header>
@@ -132,41 +148,43 @@
         </div>
 
         <!-- Bottom: Dedicated Clean Text & Action Zone (100% Readability, Zero Overlap) -->
-        <div class="p-5 sm:p-6 md:p-7 pt-2.5 sm:pt-3 md:pt-4 bg-[#f8eee6] space-y-3.5">
+        <div class="p-4 sm:p-6 md:p-7 pt-3 bg-[#f8eee6] space-y-3.5">
           <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#ebdccd]/80 pb-3">
-            <div>
-              <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs text-brand-600 text-xs sm:text-sm font-bold mb-2 shadow-2xs border border-brand-100">
-                <i class="fa-solid fa-shield-heart text-peach-500"></i> 高雄榮民總醫院 兒童醫學部 • 家庭溫馨守護
-              </div>
-              <h2 class="text-xl sm:text-2xl font-bold text-slate-800 leading-snug">
-                次世代基因定序 (NGS) <span class="text-brand-600">讓遺傳密碼成為守護指引</span>
-              </h2>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/95 backdrop-blur-xs text-brand-700 text-xs sm:text-sm font-bold shadow-2xs border border-brand-100">
+                <i class="fa-solid fa-shield-heart text-peach-500"></i> 高雄榮總 兒童醫學部 • 家庭溫馨守護
+              </span>
+              <span class="inline-flex items-center gap-1 text-xs sm:text-sm text-slate-600 font-semibold bg-white/80 px-2.5 py-1 rounded-full border border-[#ebdccd]">
+                <i class="fa-solid fa-user-doctor text-brand-600"></i>臨床指導：<span class="text-slate-800 font-bold">王禹期 醫師</span>
+              </span>
             </div>
-            <div class="text-xs sm:text-sm text-slate-500 font-medium shrink-0">
-              指導醫師：<span class="font-bold text-slate-700">王禹期 醫師</span>
+            <div class="w-full pt-1">
+              <h2 class="text-lg sm:text-2xl font-bold text-slate-800 leading-snug balance-text">
+                次世代基因定序 (NGS)<span class="text-brand-600"> 讓遺傳密碼成為守護指引</span>
+              </h2>
             </div>
           </div>
 
-          <p class="text-sm sm:text-base text-slate-700 leading-relaxed">
+          <p class="text-sm sm:text-base text-slate-700 leading-relaxed balance-text">
             透過一次檢測數百個關鍵基因，找出可能病因，王禹期醫師與高雄榮總醫療團隊精準診斷，陪家人走得更安心！
           </p>
 
-          <!-- Quick Navigation Pill Buttons -->
-          <div class="flex flex-wrap gap-2 pt-1">
-            <button onclick="goToCarouselCard(0)" class="px-3.5 py-2 bg-white/95 text-slate-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-slate-200/90 hover:bg-white hover:border-brand-300 transition active:scale-95">
+          <!-- Quick Navigation Buttons (Symmetric 2-column Grid on Mobile, Flex on Desktop) -->
+          <div class="grid grid-cols-2 sm:flex sm:flex-wrap gap-2 pt-1 text-center">
+            <button onclick="goToCarouselCard(0)" class="w-full sm:w-auto px-3 py-2.5 bg-white/95 text-slate-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-slate-200/90 hover:bg-white hover:border-brand-300 transition active:scale-95 flex items-center justify-center">
               <i class="fa-solid fa-book-open text-brand-500 mr-1.5"></i>什麼是 NGS？
             </button>
-            <button onclick="goToCarouselCard(1)" class="px-3.5 py-2 bg-white/95 text-slate-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-slate-200/90 hover:bg-white hover:border-brand-300 transition active:scale-95">
+            <button onclick="goToCarouselCard(1)" class="w-full sm:w-auto px-3 py-2.5 bg-white/95 text-slate-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-slate-200/90 hover:bg-white hover:border-brand-300 transition active:scale-95 flex items-center justify-center">
               <i class="fa-solid fa-vial text-mint-500 mr-1.5"></i>採檢會痛嗎？
             </button>
-            <button onclick="goToCarouselCard(2)" class="px-3.5 py-2 bg-white/95 text-slate-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-slate-200/90 hover:bg-white hover:border-brand-300 transition active:scale-95">
+            <button onclick="goToCarouselCard(2)" class="w-full sm:w-auto px-3 py-2.5 bg-white/95 text-slate-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-slate-200/90 hover:bg-white hover:border-brand-300 transition active:scale-95 flex items-center justify-center">
               <i class="fa-solid fa-hand-holding-dollar text-warm-500 mr-1.5"></i>費用與補助
             </button>
-            <button onclick="scrollToSection('sectionSDM')" class="px-3.5 py-2 bg-brand-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-sm hover:bg-brand-600 transition active:scale-95">
-              <i class="fa-solid fa-clipboard-check mr-1.5"></i>填問卷產提問卡
+            <button onclick="scrollToSection('sectionDoctor')" class="w-full sm:w-auto px-3 py-2.5 bg-white/95 text-brand-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-brand-200 hover:bg-white transition active:scale-95 flex items-center justify-center">
+              <i class="fa-solid fa-user-doctor text-brand-600 mr-1.5"></i>王醫師專欄
             </button>
-            <button onclick="scrollToSection('sectionDoctor')" class="px-3.5 py-2 bg-white/95 text-brand-700 text-xs sm:text-sm font-bold rounded-xl shadow-xs border border-brand-200 hover:bg-white transition active:scale-95">
-              <i class="fa-solid fa-user-doctor text-brand-600 mr-1.5"></i>王禹期醫師專欄
+            <button onclick="scrollToSection('sectionSDM')" class="col-span-2 sm:col-span-1 sm:w-auto px-4 py-2.5 bg-brand-500 text-white text-xs sm:text-sm font-bold rounded-xl shadow-sm hover:bg-brand-600 transition active:scale-95 flex items-center justify-center">
+              <i class="fa-solid fa-clipboard-check mr-1.5"></i>填問卷產提問卡
             </button>
           </div>
         </div>
@@ -174,21 +192,21 @@
       </div>
 
       <!-- ==================== PRE-TEST MODULE (候診 30 秒觀念快答 • 前測) ==================== -->
-      <div id="preTestContainer" class="bg-gradient-to-br from-brand-50/70 via-white to-mint-50/50 rounded-3xl p-5 border border-brand-200/90 shadow-xs space-y-3.5 transition-all">
-        <div class="flex items-center justify-between border-b border-brand-100/80 pb-3">
+      <div id="preTestContainer" class="bg-gradient-to-br from-brand-50/70 via-white to-mint-50/50 rounded-3xl p-4 sm:p-5 border border-brand-200/90 shadow-xs space-y-3.5 transition-all">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-brand-100/80 pb-3">
           <div class="flex items-center gap-2.5">
-            <span class="w-9 h-9 rounded-2xl bg-gradient-to-tr from-brand-500 to-mint-500 text-white flex items-center justify-center text-base font-bold shadow-xs">
+            <span class="w-10 h-10 rounded-2xl bg-gradient-to-tr from-brand-500 to-mint-500 text-white flex items-center justify-center text-lg font-bold shadow-xs shrink-0">
               <i class="fa-solid fa-clipboard-question"></i>
             </span>
             <div>
-              <div class="flex items-center gap-2">
-                <h3 class="text-base sm:text-lg font-bold text-slate-800">【候診 30 秒快答】測測看您的基因檢測概念</h3>
+              <div class="flex flex-wrap items-center gap-2">
+                <h3 class="text-base sm:text-lg font-bold text-slate-800">【候診 30 秒快答】測測看概念</h3>
                 <span class="text-xs px-2.5 py-0.5 rounded-full bg-brand-100 text-brand-700 font-bold border border-brand-200">共 3 題</span>
               </div>
-              <p class="text-xs sm:text-sm text-slate-500">閱讀導讀前，花 30 秒簡單回答，幫助王禹期醫師門診更了解您的疑問</p>
+              <p class="text-xs sm:text-sm text-slate-500 mt-0.5">花 30 秒簡單回答，幫助王禹期醫師門診更了解您的疑問</p>
             </div>
           </div>
-          <button id="btnTogglePreTest" onclick="togglePreTestCollapse()" class="text-xs font-bold text-brand-600 bg-white px-3 py-1.5 rounded-xl border border-brand-200 hover:bg-brand-50 shadow-2xs transition">
+          <button id="btnTogglePreTest" onclick="togglePreTestCollapse()" class="self-end sm:self-center text-xs font-bold text-brand-600 bg-white px-3 py-1.5 rounded-xl border border-brand-200 hover:bg-brand-50 shadow-2xs transition">
             收合題目
           </button>
         </div>
@@ -196,86 +214,86 @@
         <!-- Pre-test Questions Body -->
         <div id="preTestBody" class="space-y-3.5">
           <!-- Q1 -->
-          <div class="space-y-1.5 bg-white/95 p-3.5 rounded-2xl border border-slate-100">
-            <p class="text-xs sm:text-sm font-bold text-slate-800 flex items-start gap-1.5">
+          <div class="space-y-2 bg-white/95 p-4 rounded-2xl border border-slate-100">
+            <p class="text-sm sm:text-base font-bold text-slate-900 flex items-start gap-1.5 leading-snug">
               <span class="text-brand-600 font-extrabold">Q1.</span>
               <span>次世代基因定序 (NGS) 與傳統單一基因檢測相比，最大特色是什麼？</span>
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-xs sm:text-sm">
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ1" value="A" class="text-brand-500 mr-2 shrink-0">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-sm sm:text-base">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ1" value="A" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>一次掃描數千到兩萬個基因</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ1" value="B" class="text-brand-500 mr-2 shrink-0">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ1" value="B" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>一次只能驗單一個基因</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ1" value="C" class="text-brand-500 mr-2 shrink-0">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ1" value="C" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>必須開刀住院手術取樣</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
-                <input type="radio" name="preQ1" value="D" class="text-slate-400 mr-2 shrink-0">
-                <span class="text-slate-500">我不清楚 / 想了解</span>
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                <input type="radio" name="preQ1" value="D" class="w-5 h-5 accent-slate-400 mr-2.5 shrink-0">
+                <span class="text-slate-600">我不清楚 / 想了解</span>
               </label>
             </div>
           </div>
 
           <!-- Q2 -->
-          <div class="space-y-1.5 bg-white/95 p-3.5 rounded-2xl border border-slate-100">
-            <p class="text-xs sm:text-sm font-bold text-slate-800 flex items-start gap-1.5">
+          <div class="space-y-2 bg-white/95 p-4 rounded-2xl border border-slate-100">
+            <p class="text-sm sm:text-base font-bold text-slate-900 flex items-start gap-1.5 leading-snug">
               <span class="text-brand-600 font-extrabold">Q2.</span>
               <span>幼童若極度恐懼打針抽血，目前是否有免打針的替代採檢方案？</span>
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-xs sm:text-sm">
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ2" value="A" class="text-brand-500 mr-2 shrink-0">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-sm sm:text-base">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ2" value="A" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>完全沒辦法，只能抽骨髓</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ2" value="B" class="text-brand-500 mr-2 shrink-0">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ2" value="B" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>可使用無痛「口腔黏膜拭子」</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ2" value="C" class="text-brand-500 mr-2 shrink-0">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ2" value="C" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>只能等孩子長大成年才能驗</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
-                <input type="radio" name="preQ2" value="D" class="text-slate-400 mr-2 shrink-0">
-                <span class="text-slate-500">我不清楚 / 想了解</span>
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                <input type="radio" name="preQ2" value="D" class="w-5 h-5 accent-slate-400 mr-2.5 shrink-0">
+                <span class="text-slate-600">我不清楚 / 想了解</span>
               </label>
             </div>
           </div>
 
           <!-- Q3 -->
-          <div class="space-y-1.5 bg-white/95 p-3.5 rounded-2xl border border-slate-100">
-            <p class="text-xs sm:text-sm font-bold text-slate-800 flex items-start gap-1.5">
+          <div class="space-y-2 bg-white/95 p-4 rounded-2xl border border-slate-100">
+            <p class="text-sm sm:text-base font-bold text-slate-900 flex items-start gap-1.5 leading-snug">
               <span class="text-brand-600 font-extrabold">Q3.</span>
               <span>人體的先天基因密碼會隨年齡長大每年改變嗎？一生需要重複驗幾次？</span>
             </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-xs sm:text-sm">
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ3" value="A" class="text-brand-500 mr-2 shrink-0">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-sm sm:text-base">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ3" value="A" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>每年都會改變，每年要重抽</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ3" value="B" class="text-brand-500 mr-2 shrink-0">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ3" value="B" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>終身固定，基本上「一生驗一次」</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                <input type="radio" name="preQ3" value="C" class="text-brand-500 mr-2 shrink-0">
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                <input type="radio" name="preQ3" value="C" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
                 <span>只有感冒生病時才會暫時變形</span>
               </label>
-              <label class="flex items-center p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
-                <input type="radio" name="preQ3" value="D" class="text-slate-400 mr-2 shrink-0">
-                <span class="text-slate-500">我不清楚 / 想了解</span>
+              <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                <input type="radio" name="preQ3" value="D" class="w-5 h-5 accent-slate-400 mr-2.5 shrink-0">
+                <span class="text-slate-600">我不清楚 / 想了解</span>
               </label>
             </div>
           </div>
 
-          <div class="flex items-center justify-between pt-1">
-            <span class="text-xs text-slate-400">※ 匿名填答，僅供候診衛教需求評估參考</span>
-            <button onclick="submitPreTest()" class="px-5 py-2.5 bg-brand-500 hover:bg-brand-600 text-white font-bold text-xs sm:text-sm rounded-xl shadow-xs transition active:scale-95 flex items-center gap-1.5">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+            <span class="text-xs sm:text-sm text-slate-500">※ 匿名填答，僅供候診衛教需求評估參考</span>
+            <button onclick="submitPreTest()" class="w-full sm:w-auto px-6 py-3 bg-brand-500 hover:bg-brand-600 text-white font-bold text-sm sm:text-base rounded-xl shadow-xs transition active:scale-95 flex items-center justify-center gap-2">
               <span>完成快答，開啟衛教導航</span>
               <i class="fa-solid fa-arrow-right"></i>
             </button>
@@ -519,29 +537,29 @@
             <span class="text-xs text-brand-600 font-semibold bg-brand-50 px-2 py-0.5 rounded-md">可複選</span>
           </div>
           <div class="space-y-2 text-sm sm:text-base" id="concernList">
-            <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="檢測費用與國健署/罕病補助資格試算" class="text-brand-500 rounded mr-2.5 w-4 h-4">
-              <span>💰 檢測費用與是否有補助專案可申請</span>
+            <label class="flex items-center p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+              <input type="checkbox" value="檢測費用與國健署/罕病補助資格試算" class="w-5 h-5 accent-brand-600 rounded mr-3 shrink-0">
+              <span class="leading-snug">💰 檢測費用與是否有補助專案可申請</span>
             </label>
-            <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="商業醫療保險理賠與診斷證明書開立諮詢" class="text-brand-500 rounded mr-2.5 w-4 h-4">
-              <span>🛡️ 商業醫療保險實支實付理賠與診斷書</span>
+            <label class="flex items-center p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+              <input type="checkbox" value="商業醫療保險理賠與診斷證明書開立諮詢" class="w-5 h-5 accent-brand-600 rounded mr-3 shrink-0">
+              <span class="leading-snug">🛡️ 商業醫療保險實支實付理賠與診斷書</span>
             </label>
-            <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="小朋友怕打針抗拒時，能否使用免打針「口腔黏膜拭子」採檢？" class="text-brand-500 rounded mr-2.5 w-4 h-4">
-              <span>🩸 小朋友抗拒抽血時，能否使用免打針「口腔黏膜拭子」？</span>
+            <label class="flex items-center p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+              <input type="checkbox" value="小朋友怕打針抗拒時，能否使用免打針「口腔黏膜拭子」採檢？" class="w-5 h-5 accent-brand-600 rounded mr-3 shrink-0">
+              <span class="leading-snug">🩸 小朋友抗拒抽血時，能否使用免打針「口腔黏膜拭子」？</span>
             </label>
-            <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="檢測出報告的時間與後續治療規劃" class="text-brand-500 rounded mr-2.5 w-4 h-4">
-              <span>⏳ 檢測出報告需要幾週？確診後的治療方向？</span>
+            <label class="flex items-center p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+              <input type="checkbox" value="檢測出報告的時間與後續治療規劃" class="w-5 h-5 accent-brand-600 rounded mr-3 shrink-0">
+              <span class="leading-snug">⏳ 檢測出報告需要幾週？確診後的治療方向？</span>
             </label>
-            <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="若查不出確切基因突變，下一步該如何應對？" class="text-brand-500 rounded mr-2.5 w-4 h-4">
-              <span>🧬 若查不出確切基因突變，下一步該如何應對？</span>
+            <label class="flex items-center p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+              <input type="checkbox" value="若查不出確切基因突變，下一步該如何應對？" class="w-5 h-5 accent-brand-600 rounded mr-3 shrink-0">
+              <span class="leading-snug">🧬 若查不出確切基因突變，下一步該如何應對？</span>
             </label>
-            <label class="flex items-center p-3 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
-              <input type="checkbox" value="父母或家族成員是否需要一起檢測（全外顯子/全基因體帶因評估）" class="text-brand-500 rounded mr-2.5 w-4 h-4">
-              <span>👨‍👩‍👧 父母或家族成員是否需要一起檢測？</span>
+            <label class="flex items-center p-3.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-50 transition">
+              <input type="checkbox" value="父母或家族成員是否需要一起檢測（全外顯子/全基因體帶因評估）" class="w-5 h-5 accent-brand-600 rounded mr-3 shrink-0">
+              <span class="leading-snug">👨‍👩‍👧 父母或家族成員是否需要一起檢測？</span>
             </label>
           </div>
 
@@ -564,7 +582,7 @@
         <div id="postTestSection" class="bg-brand-50/50 p-4 sm:p-5 rounded-2xl border border-brand-200/80 space-y-3.5">
           <div class="flex items-center justify-between border-b border-brand-100 pb-2.5">
             <div class="flex items-center gap-2">
-              <span class="w-8 h-8 rounded-xl bg-warm-500 text-white flex items-center justify-center text-sm font-bold shadow-xs">
+              <span class="w-9 h-9 rounded-xl bg-warm-500 text-white flex items-center justify-center text-sm font-bold shadow-xs shrink-0">
                 <i class="fa-solid fa-award"></i>
               </span>
               <div>
@@ -572,69 +590,78 @@
                 <p class="text-xs text-slate-500">經過剛才的衛教閱讀與問答，再來快速選一次，看看您的觀念吸收狀況（共 3 題）</p>
               </div>
             </div>
-            <span class="text-xs font-bold text-warm-700 bg-warm-100 px-2.5 py-1 rounded-full border border-warm-200">
+            <span class="text-xs font-bold text-warm-700 bg-warm-100 px-2.5 py-1 rounded-full border border-warm-200 shrink-0">
               成效自我檢視
             </span>
           </div>
 
           <!-- Post-test Questions Form -->
-          <div class="space-y-3 text-xs sm:text-sm">
+          <div class="space-y-3.5">
             <!-- Post Q1 -->
-            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-              <p class="font-bold text-slate-800">Q1. 請問次世代基因定序 (NGS) 與傳統檢測最大的不同？</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5">
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ1" value="A" class="text-brand-500 mr-2 shrink-0"> 一次掃描數千到兩萬個基因
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-2">
+              <p class="text-sm sm:text-base font-bold text-slate-900 leading-snug">Q1. 請問次世代基因定序 (NGS) 與傳統檢測最大的不同？</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-sm sm:text-base">
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ1" value="A" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>一次掃描數千到兩萬個基因</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ1" value="B" class="text-brand-500 mr-2 shrink-0"> 一次只能驗單一個基因
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ1" value="B" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>一次只能驗單一個基因</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ1" value="C" class="text-brand-500 mr-2 shrink-0"> 必須住院開刀
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ1" value="C" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>必須住院開刀取樣</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
-                  <input type="radio" name="postQ1" value="D" class="text-slate-400 mr-2 shrink-0">
-                  <span class="text-slate-500">我不清楚 / 仍有疑問</span>
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                  <input type="radio" name="postQ1" value="D" class="w-5 h-5 accent-slate-400 mr-2.5 shrink-0">
+                  <span class="text-slate-600">我不清楚 / 仍有疑問</span>
                 </label>
               </div>
             </div>
 
             <!-- Post Q2 -->
-            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-              <p class="font-bold text-slate-800">Q2. 幼童若抗拒抽血，高榮兒童醫學部提供哪種免打針方案？</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5">
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ2" value="A" class="text-brand-500 mr-2 shrink-0"> 抽骨髓
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-2">
+              <p class="text-sm sm:text-base font-bold text-slate-900 leading-snug">Q2. 幼童若抗拒抽血，高榮兒童醫學部提供哪種免打針方案？</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-sm sm:text-base">
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ2" value="A" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>抽骨髓</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ2" value="B" class="text-brand-500 mr-2 shrink-0"> 無痛「口腔黏膜拭子」
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ2" value="B" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>無痛「口腔黏膜拭子」</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ2" value="C" class="text-brand-500 mr-2 shrink-0"> 只能長大後再驗
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ2" value="C" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>只能長大後再驗</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
-                  <input type="radio" name="postQ2" value="D" class="text-slate-400 mr-2 shrink-0">
-                  <span class="text-slate-500">我不清楚 / 仍有疑問</span>
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                  <input type="radio" name="postQ2" value="D" class="w-5 h-5 accent-slate-400 mr-2.5 shrink-0">
+                  <span class="text-slate-600">我不清楚 / 仍有疑問</span>
                 </label>
               </div>
             </div>
 
             <!-- Post Q3 -->
-            <div class="bg-white p-3 rounded-xl border border-slate-200 space-y-1.5">
-              <p class="font-bold text-slate-800">Q3. 先天基因密碼會隨長大改變嗎？一生需要重複驗幾次？</p>
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1.5">
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ3" value="A" class="text-brand-500 mr-2 shrink-0"> 每年都要重抽重驗
+            <div class="bg-white p-4 rounded-2xl border border-slate-200 space-y-2">
+              <p class="text-sm sm:text-base font-bold text-slate-900 leading-snug">Q3. 先天基因密碼會隨長大改變嗎？一生需要重複驗幾次？</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-2 pt-1 text-sm sm:text-base">
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ3" value="A" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>每年都要重抽重驗</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ3" value="B" class="text-brand-500 mr-2 shrink-0"> 終身固定，基本上「一生驗一次」
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ3" value="B" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>終身固定，基本上「一生驗一次」</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
-                  <input type="radio" name="postQ3" value="C" class="text-brand-500 mr-2 shrink-0"> 感冒時會暫時變異
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-brand-50 transition">
+                  <input type="radio" name="postQ3" value="C" class="w-5 h-5 accent-brand-600 mr-2.5 shrink-0">
+                  <span>感冒時會暫時變異</span>
                 </label>
-                <label class="flex items-center p-2 rounded-lg border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
-                  <input type="radio" name="postQ3" value="D" class="text-slate-400 mr-2 shrink-0">
-                  <span class="text-slate-500">我不清楚 / 仍有疑問</span>
+                <label class="flex items-center p-3 sm:p-2.5 rounded-xl border border-slate-200 cursor-pointer hover:bg-slate-100 transition bg-slate-50/60">
+                  <input type="radio" name="postQ3" value="D" class="w-5 h-5 accent-slate-400 mr-2.5 shrink-0">
+                  <span class="text-slate-600">我不清楚 / 仍有疑問</span>
                 </label>
               </div>
             </div>
@@ -948,6 +975,42 @@
 
   <!-- JavaScript Interaction Logic -->
   <script>
+    // ==================== Font Size Engine (Elderly & Presbyopia Friendly) ====================
+    const fontSizes = ['normal', 'large', 'xlarge'];
+    const fontSizeLabels = {
+      'normal': '字體: 標準',
+      'large': '字體: 大',
+      'xlarge': '字體: 特大'
+    };
+    let currentFontSize = localStorage.getItem('user_font_size') || 'large'; // Default to 'large' (18px) for comfortable reading
+
+    function setFontSize(size) {
+      if (!fontSizes.includes(size)) size = 'large';
+      currentFontSize = size;
+      try {
+        localStorage.setItem('user_font_size', size);
+      } catch (e) {}
+
+      // Update HTML root class for rem scaling
+      document.documentElement.classList.remove('font-normal', 'font-large', 'font-xlarge');
+      document.documentElement.classList.add(`font-${size}`);
+
+      // Update button label
+      const labelEl = document.getElementById('fontSizeLabel');
+      if (labelEl) {
+        labelEl.innerText = fontSizeLabels[size] || '字體: 大';
+      }
+    }
+
+    function cycleFontSize() {
+      const currentIndex = fontSizes.indexOf(currentFontSize);
+      const nextIndex = (currentIndex + 1) % fontSizes.length;
+      setFontSize(fontSizes[nextIndex]);
+    }
+
+    // Apply saved or default font size immediately
+    setFontSize(currentFontSize);
+
     // Track Switcher Logic
     function switchTrack(track) {
       const publicSection = document.getElementById('trackPublic');
