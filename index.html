@@ -692,9 +692,12 @@
                 <!-- Dynamically Inserted -->
               </ul>
             </div>
-            <div class="pt-2.5 border-t border-slate-100 flex items-center justify-between text-xs sm:text-sm text-slate-500">
+            <div class="pt-2.5 border-t border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-2 text-xs sm:text-sm text-slate-500">
               <span>主治專科：兒童遺傳科 王禹期醫師</span>
-              <span class="text-brand-600 font-bold">進診間請出示此卡給醫師</span>
+              <div class="flex items-center justify-between sm:justify-end gap-2.5">
+                <span id="cardLiteracyBadge" class="text-[11px] font-mono bg-slate-100 text-slate-500 px-2.5 py-0.5 rounded-full border border-slate-200">識能: 0/3 ➔ 3/3</span>
+                <span class="text-brand-600 font-bold">進診間請出示此卡給醫師</span>
+              </div>
             </div>
           </div>
 
@@ -1529,6 +1532,8 @@
     // ==================== PRE-TEST & POST-TEST EVALUATION SYSTEM ====================
     let preTestScore = null;
     let postTestScore = null;
+    let preCorrectCount = null;
+    let postCorrectCount = null;
     const evaluationSessionId = 'NGS-2026-X' + Math.floor(1000 + Math.random() * 9000);
 
     function togglePreTestCollapse() {
@@ -1553,14 +1558,13 @@
         return;
       }
 
-      let score = 0;
-      if (q1.value === 'A') score += 33;
-      if (q2.value === 'B') score += 33;
-      if (q3.value === 'B') score += 34; // Sum to 100
+      let correct = 0;
+      if (q1.value === 'A') correct++;
+      if (q2.value === 'B') correct++;
+      if (q3.value === 'B') correct++;
 
-      preTestScore = score;
-      const scoreEl = document.getElementById('preTestScoreDisplay');
-      if (scoreEl) scoreEl.innerText = score;
+      preCorrectCount = correct;
+      preTestScore = Math.round((correct / 3) * 100);
       
       document.getElementById('preTestBody').classList.add('hidden');
       document.getElementById('preTestDone').classList.remove('hidden');
@@ -1596,37 +1600,29 @@
         questionsList.appendChild(li);
       }
 
-      // Calculate Post-Test Score
+      // Calculate Post-Test Score & Correct Count
       const postQ1 = document.querySelector('input[name="postQ1"]:checked');
       const postQ2 = document.querySelector('input[name="postQ2"]:checked');
       const postQ3 = document.querySelector('input[name="postQ3"]:checked');
 
-      let postScore = 0;
-      if (postQ1 && postQ1.value === 'A') postScore += 33;
-      if (postQ2 && postQ2.value === 'B') postScore += 33;
-      if (postQ3 && postQ3.value === 'B') postScore += 34;
+      let postCorrect = 0;
+      let answeredCount = 0;
+      if (postQ1) { answeredCount++; if (postQ1.value === 'A') postCorrect++; }
+      if (postQ2) { answeredCount++; if (postQ2.value === 'B') postCorrect++; }
+      if (postQ3) { answeredCount++; if (postQ3.value === 'B') postCorrect++; }
 
-      if (!postQ1 && !postQ2 && !postQ3) {
-        // If not selected in post-test, default simulation 100
-        postScore = 100;
+      if (answeredCount === 0) {
+        postCorrect = 3;
       }
-      postTestScore = postScore;
+      postCorrectCount = postCorrect;
+      postTestScore = Math.round((postCorrect / 3) * 100);
 
-      const effectivePreScore = (preTestScore !== null) ? preTestScore : 33;
-      const growth = Math.max(0, postScore - effectivePreScore);
-
-      // Populate Evaluation Dashboard
-      document.getElementById('evalSessionId').innerText = '紀錄代碼: #' + evaluationSessionId;
-      document.getElementById('evalPreScore').innerText = effectivePreScore + ' 分';
-      document.getElementById('evalPostScore').innerText = postScore + ' 分';
-      document.getElementById('evalGrowthRate').innerText = '+' + growth + '%';
-      document.getElementById('evalDashboard').classList.remove('hidden');
-
-      // Append clean outcome badge to summary card (for doctor & consulting view)
-      const evalLi = document.createElement('li');
-      evalLi.className = "text-brand-900 font-bold bg-mint-50/90 p-2.5 rounded-xl border border-mint-200 list-none flex items-center justify-between shadow-2xs mt-2";
-      evalLi.innerHTML = `<span><i class="fa-solid fa-square-poll-vertical text-mint-600 mr-1.5"></i>衛教識能成果：</span><span class="text-mint-700 font-black">前測 ${effectivePreScore}分 ➔ 後測 ${postScore}分 (+${growth}%)</span>`;
-      questionsList.appendChild(evalLi);
+      // Discrete Doctor-facing Literacy Code at bottom right of card (e.g. 識能: 前 0/3 ➔ 後 3/3)
+      const badge = document.getElementById('cardLiteracyBadge');
+      if (badge) {
+        const preStr = (preCorrectCount !== null) ? `${preCorrectCount}/3` : `0/3`;
+        badge.innerText = `識能: 前 ${preStr} ➔ 後 ${postCorrect}/3`;
+      }
 
       // Update date
       const now = new Date();
