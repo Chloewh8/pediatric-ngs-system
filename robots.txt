@@ -1,0 +1,3 @@
+# Block all web crawlers and search engine indexing during internal review
+User-agent: *
+Disallow: /
